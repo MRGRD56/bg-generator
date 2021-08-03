@@ -73,7 +73,7 @@ class App extends Component {
                             value={this.state.size.height} onChange={e => this.onHeightChange(e)}/>
                         <input type="color" className="form-control form-control-color"
                             value={this.state.imgColor} onChange={e => this.onImgColorChange(e)}/>
-                        <input type="text" className="form-control"
+                        <input type="text" className="form-control font-monospace"
                             value={this.state.imgColor} onChange={e => this.onImgColorChange(e)}/>
                     </div>
                     <img className="result-image" src={this.state.imgSource} alt="Image"/>
