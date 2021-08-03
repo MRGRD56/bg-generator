@@ -3,7 +3,7 @@ import "./App.css";
 import "bootstrap/dist/js/bootstrap.min";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-class App extends Component {
+export default class App extends Component {
     constructor(props) {
         super(props);
 
@@ -82,5 +82,3 @@ class App extends Component {
         );
     }
 }
-
-export default App;
