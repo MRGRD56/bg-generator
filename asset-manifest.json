@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/bg-generator/static/css/main.04e3c080.chunk.css",
+    "main.js": "/bg-generator/static/js/main.be2e0d0b.chunk.js",
+    "main.js.map": "/bg-generator/static/js/main.be2e0d0b.chunk.js.map",
+    "runtime-main.js": "/bg-generator/static/js/runtime-main.c05fc5d4.js",
+    "runtime-main.js.map": "/bg-generator/static/js/runtime-main.c05fc5d4.js.map",
+    "static/css/2.fb17aa6d.chunk.css": "/bg-generator/static/css/2.fb17aa6d.chunk.css",
+    "static/js/2.9c171090.chunk.js": "/bg-generator/static/js/2.9c171090.chunk.js",
+    "static/js/2.9c171090.chunk.js.map": "/bg-generator/static/js/2.9c171090.chunk.js.map",
+    "static/js/3.6937703e.chunk.js": "/bg-generator/static/js/3.6937703e.chunk.js",
+    "static/js/3.6937703e.chunk.js.map": "/bg-generator/static/js/3.6937703e.chunk.js.map",
+    "index.html": "/bg-generator/index.html",
+    "static/css/2.fb17aa6d.chunk.css.map": "/bg-generator/static/css/2.fb17aa6d.chunk.css.map",
+    "static/css/main.04e3c080.chunk.css.map": "/bg-generator/static/css/main.04e3c080.chunk.css.map",
+    "static/js/2.9c171090.chunk.js.LICENSE.txt": "/bg-generator/static/js/2.9c171090.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c05fc5d4.js",
+    "static/css/2.fb17aa6d.chunk.css",
+    "static/js/2.9c171090.chunk.js",
+    "static/css/main.04e3c080.chunk.css",
+    "static/js/main.be2e0d0b.chunk.js"
+  ]
+}
