@@ -1,1 +1,0 @@
-{"version":3,"sources":["webpack://src/App.css"],"names":[],"mappings":"AAAA,iBACI,qBAAuB,CACvB,cACJ,CAEA,UACI,eACJ","file":"main.04e3c080.chunk.css","sourcesContent":["img.result-image {\n    border: 1px solid black;\n    max-width: 100%;\n}\n\n.top-menu {\n    max-width: 500px;\n}"]}
