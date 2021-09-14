@@ -1,84 +1,99 @@
-import React, {Component} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import "./App.css";
 import "bootstrap/dist/js/bootstrap.min";
 import "bootstrap/dist/css/bootstrap.min.css";
+import BindableInput from "./components/BindableInput";
 
-export default class App extends Component {
-    constructor(props) {
-        super(props);
+const App = () => {
+    const imgCanvas = useRef((() => {
+        const canvas = document.createElement("canvas");
+        canvas.style.display = "none";
+        return canvas;
+    })());
+    const imgCanvasContext = useRef(imgCanvas.current.getContext("2d"));
 
-        this.imgCanvas = document.createElement("canvas");
-        this.imgCanvas.style.display = "none";
-        document.body.appendChild(this.imgCanvas);
-        this.imgCanvasContext = this.imgCanvas.getContext("2d");
+    useEffect(() => {
+        document.body.appendChild(imgCanvas.current);
+    }, []);
 
-        const newState = {
-            size: {
-                width: 1280,
-                height: 720
-            },
-            imgColor: "#42a5f5",
-            imgSource: undefined
-        };
-        newState.imgSource = this.generateImage(newState);
-        this.state = newState;
+    const initialImgParameters = {
+        size: {
+            width: 1280,
+            height: 720
+        },
+        imgColor: "#42a5f5"
+    };
+
+    const [imgParameters, setImgParameters] = useState(initialImgParameters);
+    const imgSource = useMemo(() => generateImage(imgParameters), [imgParameters]);
+
+    function onWidthChange(value) {
+        setImgParameters(state => {
+            return {
+                ...state,
+                size: {
+                    ...state.size,
+                    width: value
+                }
+            };
+        });
     }
 
-    onWidthChange(e) {
-        const newState = Object.assign(this.state);
-        newState.size.width = e.target.value;
-        this.updateImage(newState);
+    function onHeightChange(value) {
+        setImgParameters(state => {
+            return {
+                ...state,
+                size: {
+                    ...state.size,
+                    height: value
+                }
+            };
+        });
     }
 
-    onHeightChange(e) {
-        const newState = Object.assign(this.state);
-        newState.size.height = e.target.value;
-        this.updateImage(newState);
+    function onImgColorChange(value) {
+        setImgParameters(state => {
+            return {
+                ...state,
+                imgColor: value
+            };
+        });
     }
 
-    onImgColorChange(e) {
-        const newState = Object.assign(this.state);
-        newState.imgColor = e.target.value;
-        this.updateImage(newState);
-    }
-
-    updateImage(newState) {
-        newState.imgSource = this.generateImage(newState);
-        this.setState(newState);
-    }
-
-    generateImage(state) {
+    function generateImage(state) {
         if (!state.size.width
             || state.size.width < 0
             || !state.size.height
             || state.size.height < 0
-            || !state.imgColor) {
+            || !state.imgColor
+            || !imgCanvas.current) {
             return;
         }
-        this.imgCanvas.width = state.size.width;
-        this.imgCanvas.height = state.size.height;
-        this.imgCanvasContext.fillStyle = state.imgColor;
-        this.imgCanvasContext.fillRect(0, 0, this.imgCanvas.width, this.imgCanvas.height);
-        return this.imgCanvas.toDataURL("image/png");
+
+        imgCanvas.current.width = state.size.width;
+        imgCanvas.current.height = state.size.height;
+        imgCanvasContext.current.fillStyle = state.imgColor;
+        imgCanvasContext.current.fillRect(0, 0, imgCanvas.current.width, imgCanvas.current.height);
+        return imgCanvas.current.toDataURL("image/png");
     }
 
-    render() {
-        return (
-            <div className="App">
-                <div className="container my-3">
-                    <div className="top-menu input-group mb-3">
-                        <input type="number" min="0" className="form-control" placeholder="Width"
-                            value={this.state.size.width} onChange={e => this.onWidthChange(e)}/>
-                        <input type="number" min="0" className="form-control" placeholder="Height"
-                            value={this.state.size.height} onChange={e => this.onHeightChange(e)}/>
-                        <input type="color" className="form-control form-control-color"
-                            value={this.state.imgColor} onChange={e => this.onImgColorChange(e)}/>
-                        <input type="text" className="form-control font-monospace" placeholder="Color"
-                            value={this.state.imgColor} onChange={e => this.onImgColorChange(e)}/>
-                    </div>
-                    <img className="result-image" src={this.state.imgSource} alt="Image"/>
+    return (
+        <div className="App">
+            <div className="container my-3">
+                <div className="top-menu input-group mb-3">
+                    <BindableInput type="number" min="0" className="form-control" placeholder="Width"
+                        value={imgParameters.size.width} setValue={onWidthChange}/>
+                    <BindableInput type="number" min="0" className="form-control" placeholder="Height"
+                        value={imgParameters.size.height} setValue={onHeightChange}/>
+                    <BindableInput type="color" className="form-control form-control-color"
+                        value={imgParameters.imgColor} setValue={onImgColorChange}/>
+                    <BindableInput type="text" className="form-control font-monospace" placeholder="Color"
+                        value={imgParameters.imgColor} setValue={onImgColorChange}/>
                 </div>
+                <img className="result-image" src={imgSource} alt="Image"/>
             </div>
-        );
-    }
-}
+        </div>
+    );
+};
+
+export default App;
